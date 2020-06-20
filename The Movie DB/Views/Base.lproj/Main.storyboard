@@ -208,6 +208,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="e0e-yX-S1D" id="7kT-Tx-PiE"/>
                         <outlet property="nameLabel" destination="bSq-mg-RGl" id="Tdf-H5-IpA"/>
+                        <outlet property="navigationItem" destination="pQD-9u-6id" id="7az-yr-fbT"/>
                         <outlet property="overviewLabel" destination="u9n-Cz-e88" id="Sqs-js-80G"/>
                         <outlet property="posterImageView" destination="ifl-kZ-p0f" id="COU-tv-RvN"/>
                         <outlet property="productionCompanyImageView" destination="kTt-eB-U9a" id="cPH-7l-soe"/>

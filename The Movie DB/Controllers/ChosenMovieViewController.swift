@@ -28,8 +28,7 @@ class ChosenMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = chosenMovie?.title
-        
+        configureBackButton()
     }
     
     //MARK: Functions
@@ -50,19 +49,32 @@ class ChosenMovieViewController: UIViewController {
                     }
                 }
                 
-                guard self.chosenMovie?.productionCompanies?.count ?? 0 > 0 else { return }
-                self.productionCompanyNameLabel.text = "\(self.chosenMovie?.productionCompanies?[0].name ?? "N/A") Productions"
-                
-                if let url = URL(string: "https://image.tmdb.org/t/p/w440_and_h660_face\(self.chosenMovie?.productionCompanies?[0].logoPath ?? "")"){
-                    let data = try? Data(contentsOf: url)
-                    if let imageData = data {
-                        self.productionCompanyImageView.image = UIImage(data: imageData)
-                    } else{
-                        self.productionCompanyImageView.image = UIImage(named: "noMovie")
+                if self.chosenMovie?.productionCompanies?.count ?? 0 > 0 {
+                    self.productionCompanyNameLabel.text = "\(self.chosenMovie?.productionCompanies?[0].name ?? "N/A") Productions"
+                    
+                    if let url = URL(string: "https://image.tmdb.org/t/p/w440_and_h660_face\(self.chosenMovie?.productionCompanies?[0].logoPath ?? "")"){
+                        let data = try? Data(contentsOf: url)
+                        if let imageData = data {
+                            self.productionCompanyImageView.image = UIImage(data: imageData)
+                        } else{
+                            self.productionCompanyImageView.image = UIImage(named: "noMovie")
+                        }
+                        self.productionCompanyImageView.isHidden = false
                     }
+                    
+                }else{
+                    self.productionCompanyImageView.image = UIImage(named: "noMovie")
                     self.productionCompanyImageView.isHidden = false
+                    self.productionCompanyNameLabel.text = "Productions: N/A"
                 }
             }
         }
+    }
+    
+    private func configureBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 }

@@ -16,14 +16,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: Properties
-    var movie: Movie? {
-        didSet{
-            movie?.results?.forEach({
-                results.append($0)
-            })
-        }
-    }
-    
+    var filteredResults = [Result]()
     var results = [Result](){
         didSet{
             DispatchQueue.main.async {
@@ -32,8 +25,13 @@ class MainViewController: UIViewController {
             }
         }
     }
-    
-    var filteredResults = [Result]()
+    var movie: Movie? {
+        didSet{
+            movie?.results?.forEach({
+                results.append($0)
+            })
+        }
+    }
     
     //MARK: LifeCycle
     override func viewDidLoad() {
@@ -41,8 +39,7 @@ class MainViewController: UIViewController {
         
         configureTableView()
         configureDataBase()
-        self.hideKeyboardWhenTappedAround()
-
+        hideKeyboardWhenTappedAround()
     }
     
     //MARK: Functions
@@ -63,7 +60,7 @@ class MainViewController: UIViewController {
     }
 }
 
-
+//MARK: Extensions
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredResults.count
@@ -82,32 +79,30 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: ChosenMovieViewController.segue, sender: filteredResults[indexPath.row].id)
+        performSegue(withIdentifier: ChosenMovieViewController.segue, sender: filteredResults[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ChosenMovieViewController.segue {
             if let dest = segue.destination as? ChosenMovieViewController {
-                dest.id = sender as! Int
+                let result = sender as? Result
+                dest.id = result?.id ?? 0
+                dest.navigationItem.title = result?.title
                 dest.configurePage()
             }
         }
     }
-    
 }
-
 
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text else { return }
-        
         if !text.isEmpty {
             filteredResults = results.filter({ $0.title.lowercased().contains(text.lowercased())})
-           } else{
-               filteredResults = results
-           }
-        
-           tableView.reloadData()
+        } else{
+            filteredResults = results
+        }
+        tableView.reloadData()
     }
 }
 
@@ -118,7 +113,7 @@ extension UIViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
