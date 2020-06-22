@@ -19,7 +19,7 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popularityLabel: UILabel!
     
-    
+    //MARK: Functions
     public func configureCell(result: Result){
         titleLabel.text = result.title
         popularityLabel.text = "Popularity: \(result.popularity)"
@@ -28,16 +28,4 @@ class MovieTableViewCell: UITableViewCell {
             if !(bool) { print (bool) }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
 }

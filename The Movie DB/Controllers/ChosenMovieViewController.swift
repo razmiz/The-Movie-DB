@@ -14,6 +14,8 @@ class ChosenMovieViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    
+    @IBOutlet weak var voteAverageLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var productionCompanyImageView: UIImageView!
     @IBOutlet weak var productionCompanyNameLabel: UILabel!
@@ -40,6 +42,7 @@ class ChosenMovieViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.nameLabel.text = self.chosenMovie?.title
                 self.releaseDateLabel.text = "Release Date: \(self.chosenMovie?.releaseDate ?? "N/A")"
+                self.voteAverageLabel.text = "Vote Average: \(self.chosenMovie?.voteAverage ?? 0.0)"
                 self.overviewLabel.text = self.chosenMovie?.overview
                 
                 if let url = URL(string: "https://image.tmdb.org/t/p/w440_and_h660_face\(self.chosenMovie?.posterPath ?? "")"){

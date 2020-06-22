@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: Properties
+    var pageNumber = 1
     var filteredResults = [Result]()
     var results = [Result](){
         didSet{
@@ -38,7 +39,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        configureDataBase()
+        loadDataBase()
         hideKeyboardWhenTappedAround()
     }
     
@@ -50,31 +51,31 @@ class MainViewController: UIViewController {
         tableView.separatorInset.right = 15
     }
     
-    private func configureDataBase(){
-        let count = 1...5
-        for (index,_) in count.enumerated(){
-            DataBase().parseMovieFromJson(with: index) { (movie) in
-                self.movie = movie
-            }
+    private func loadDataBase(){
+        guard pageNumber < 6 else { return }
+        DataBase().parseMovieFromJson(with: pageNumber) { (movie) in
+            self.movie = movie
         }
     }
 }
 
-//MARK: Extensions
+//MARK: Extensions - TableView
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier) as? MovieTableViewCell {
+            if indexPath.row == self.filteredResults.count - 1 {
+                pageNumber += 1
+                loadDataBase()
+            }
             let result = filteredResults[indexPath.row]
             cell.configureCell(result: result)
             activityIndicator.stopAnimating()
             return cell
         }
-        
         return UITableViewCell()
     }
     
@@ -94,6 +95,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: Extension - SearchBar
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text else { return }
@@ -103,18 +105,5 @@ extension MainViewController: UISearchBarDelegate {
             filteredResults = results
         }
         tableView.reloadData()
-    }
-}
-
-//Dismiss Keyboard by touching anywhere extension
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
 }
