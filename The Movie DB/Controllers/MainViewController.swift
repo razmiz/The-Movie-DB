@@ -30,6 +30,9 @@ class MainViewController: UIViewController {
         didSet{
             movie?.results?.forEach({
                 results.append($0)
+                results.sort { (result1, result2) -> Bool in
+                    result1.popularity > result2.popularity
+                }
             })
         }
     }
@@ -80,14 +83,14 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: ChosenMovieViewController.segue, sender: filteredResults[indexPath.row])
+        performSegue(withIdentifier: ChosenMovieDetailsViewController.segue, sender: filteredResults[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ChosenMovieViewController.segue {
-            if let dest = segue.destination as? ChosenMovieViewController {
+        if segue.identifier == ChosenMovieDetailsViewController.segue {
+            if let dest = segue.destination as? ChosenMovieDetailsViewController {
                 let result = sender as? Result
-                dest.id = result?.id ?? 0
+                dest.movieId = result?.id ?? 0
                 dest.navigationItem.title = result?.title
                 dest.configurePage()
             }
