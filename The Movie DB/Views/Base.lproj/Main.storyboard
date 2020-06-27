@@ -87,15 +87,15 @@
                             </activityIndicatorView>
                             <searchBar contentMode="redraw" text="" placeholder="Search Movie" translatesAutoresizingMaskIntoConstraints="NO" id="Zhh-Yb-OYa">
                                 <rect key="frame" x="0.0" y="88" width="414" height="56"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" red="0.90775156021118164" green="0.94084221124649048" blue="0.96997851133346558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.087499357759952545" green="0.20260435342788696" blue="0.37800472974777222" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.86308296319796951" green="0.86308296319796951" blue="0.86308296319796951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="l7j-eR-SiZ"/>
                                 </connections>
                             </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.087499357759952545" green="0.20260435342788696" blue="0.37800472974777222" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="we8-HG-DaH" secondAttribute="trailing" id="79e-13-kNZ"/>
                             <constraint firstItem="we8-HG-DaH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DFa-VO-vfl"/>
@@ -190,7 +190,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ta4-dN-hzZ">
-                                                            <rect key="frame" x="0.0" y="160" width="189.5" height="257"/>
+                                                            <rect key="frame" x="0.0" y="160" width="374" height="257"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noMovie" translatesAutoresizingMaskIntoConstraints="NO" id="zkE-jH-E2a">
                                                                     <rect key="frame" x="0.0" y="111" width="35" height="35"/>
@@ -199,8 +199,8 @@
                                                                         <constraint firstAttribute="width" constant="35" id="pCc-1g-9wT"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Production Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUk-nb-VvC">
-                                                                    <rect key="frame" x="39" y="116.5" width="150.5" height="24"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Production Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUk-nb-VvC">
+                                                                    <rect key="frame" x="39" y="116.5" width="335" height="24"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                     <color key="textColor" red="0.087499357759952545" green="0.20260435342788696" blue="0.37800472974777222" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -209,6 +209,9 @@
                                                         </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.68665075302124023" green="0.84833747148513794" blue="0.93156939744949341" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="ta4-dN-hzZ" secondAttribute="trailing" id="9PE-RU-jqN"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>

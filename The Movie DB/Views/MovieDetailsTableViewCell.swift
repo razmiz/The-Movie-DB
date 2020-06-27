@@ -10,12 +10,14 @@ import UIKit
 
 class MovieDetailsTableViewCell: UITableViewCell {
     
+    //MARK: Properties
     public static let identifier = "movieDetailsIdentifier"
     let imageCache = NSCache<NSString, UIImage>()
     var highestPopularity = 260.0
     var movieId = 0
     var chosenMovie: ChosenMovie?
     
+    //MARK: Outlets
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var voteAverageLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
@@ -23,17 +25,20 @@ class MovieDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var productionImageView: UIImageView!
     @IBOutlet weak var productionNameLabel: UILabel!
     
+    //MARK: Functions
     public func configureCell(chosenMovie: ChosenMovie){
         self.chosenMovie = chosenMovie
                 
         releaseDateLabel.text = "Release Date: \(chosenMovie.releaseDate )"
         voteAverageLabel.text = "Vote Average: \(chosenMovie.voteAverage )"
         overviewLabel.text = chosenMovie.overview
-        var languages = "Spoken languages: "
+        var languages = "Spoken languages:"
         chosenMovie.spokenLanguages.forEach({ (language) in
-            languages += "\(language.name) "
+            languages += " \(language.name),"
         })
-        languagesLabel.text = languages
+        languages = String(languages.dropLast())
+        
+        languagesLabel.text = chosenMovie.spokenLanguages.count > 0 ? languages : languages + ": N/A"
         
         if chosenMovie.productionCompanies?.count ?? 0 > 0 {
             self.productionNameLabel.text = "\(self.chosenMovie?.productionCompanies?[0].name ?? "N/A") Productions"
@@ -53,7 +58,5 @@ class MovieDetailsTableViewCell: UITableViewCell {
             self.productionImageView.isHidden = false
             self.productionNameLabel.text = "Productions: N/A"
         }
-        
-        
     }
 }

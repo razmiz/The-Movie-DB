@@ -63,6 +63,7 @@ enum OriginalLanguage: String, Codable {
     case zh = "zh"
     case ja = "ja"
     case fr = "fr"
+    case hi = "hi"
     
 }
 
@@ -76,7 +77,8 @@ struct ChosenMovie: Codable {
     let genres: [Genre]
     let homepage: String
     let id: Int
-    let imdbID, originalLanguage, originalTitle, overview: String
+    let imdbID: String?
+    let originalLanguage, originalTitle, overview: String
     let popularity: Double
     let posterPath: String
     let productionCompanies: [ProductionCompany]?
