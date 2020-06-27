@@ -25,11 +25,11 @@ struct Result: Codable {
     let popularity: Double
     let voteCount: Int
     let video: Bool
-    let posterPath: String
+    let posterPath: String?
     let id: Int
     let adult: Bool
     let backdropPath: String?
-    let originalLanguage: OriginalLanguage?
+    let originalLanguage: String?
     let originalTitle: String
     let genreIDS: [Int]
     let title: String
@@ -64,7 +64,10 @@ enum OriginalLanguage: String, Codable {
     case ja = "ja"
     case fr = "fr"
     case hi = "hi"
-    
+    case es = "es"
+    case it = "it"
+    case cs = "cs"
+    case ta = "ta"
 }
 
 
@@ -80,7 +83,7 @@ struct ChosenMovie: Codable {
     let imdbID: String?
     let originalLanguage, originalTitle, overview: String
     let popularity: Double
-    let posterPath: String
+    let posterPath: String?
     let productionCompanies: [ProductionCompany]?
     let productionCountries: [ProductionCountry]
     let releaseDate: String
@@ -115,7 +118,7 @@ struct ChosenMovie: Codable {
 // MARK: - BelongsToCollection
 struct BelongsToCollection: Codable {
     let id: Int
-    let name, posterPath: String
+    let name, posterPath: String?
     let backdropPath: String?
 
     enum CodingKeys: String, CodingKey {

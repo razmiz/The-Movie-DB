@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     
     //MARK: Properties
     var pageNumber = 1
+    var lastPage = false
     var filteredResults = [Result]()
     var results = [Result](){
         didSet{
@@ -28,6 +29,7 @@ class MainViewController: UIViewController {
     }
     var movie: Movie? {
         didSet{
+            lastPage = checkIfLastPage(movie: movie!)
             movie?.results?.forEach({
                 results.append($0)
                 results.sort { (result1, result2) -> Bool in
@@ -44,6 +46,7 @@ class MainViewController: UIViewController {
         configureTableView()
         loadDataBase()
         hideKeyboardWhenTappedAround()
+        
     }
     
     //MARK: Functions
@@ -55,10 +58,16 @@ class MainViewController: UIViewController {
     }
     
     private func loadDataBase(){
-        guard pageNumber < 6 else { return }
+//        print("pageNumber = \(pageNumber)")
+        guard pageNumber < 15 else { return }
+//        guard !lastPage else { return }
         DataBase().parseMovieFromJson(with: pageNumber) { (movie) in
             self.movie = movie
         }
+    }
+    
+    private func checkIfLastPage(movie: Movie) -> Bool{
+        return movie.results?.count ?? 0 < 20
     }
 }
 
@@ -96,6 +105,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    
 }
 
 //MARK: Extension - SearchBar
@@ -108,5 +119,10 @@ extension MainViewController: UISearchBarDelegate {
             filteredResults = results
         }
         tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
     }
 }

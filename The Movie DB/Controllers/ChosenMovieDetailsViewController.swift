@@ -10,18 +10,20 @@ import UIKit
 
 class ChosenMovieDetailsViewController: UIViewController {
     
+    //MARK: Properties
+    public static let segue = "chosenMovieSegue"
     let imageCache = NSCache<NSString, UIImage>()
     var highestPopularity = 260.0
     var movieId = 0
-    public static let segue = "chosenMovieSegue"
     var chosenMovie: ChosenMovie?
-    @IBOutlet weak var tableView: UITableView!
     
+    //MARK: Outlets
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
+    //MARK: Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,7 @@ class ChosenMovieDetailsViewController: UIViewController {
         configureTableView()
     }
     
+    //MARK: Functions
     public func configurePage(){
         DataBase().parseChosenMovieFromJson(with: movieId) { (movie) in
             self.chosenMovie = movie
@@ -48,10 +51,9 @@ class ChosenMovieDetailsViewController: UIViewController {
                 
                 self.tableView.reloadData()
             }
-            
-            
         }
     }
+    
     private func configureBackButton() {
         let backButton = UIBarButtonItem()
         backButton.title = ""
@@ -67,7 +69,7 @@ class ChosenMovieDetailsViewController: UIViewController {
     }
 }
 
-
+//MARK: Extensions - handle tableView
 extension ChosenMovieDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -82,8 +84,6 @@ extension ChosenMovieDetailsViewController: UITableViewDataSource, UITableViewDe
         }
         return UITableViewCell()
     }
-    
-    
 }
 
 

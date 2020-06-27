@@ -114,8 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				75A3A334249D515B0058D799 /* Main.storyboard */,
-				75C05DDF24A3B16D005A6506 /* MovieDetailsTableViewCell.swift */,
 				75A3A346249D53B40058D799 /* MovieTableViewCell.swift */,
+				75C05DDF24A3B16D005A6506 /* MovieDetailsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

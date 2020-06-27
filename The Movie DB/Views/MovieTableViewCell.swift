@@ -24,10 +24,10 @@ class MovieTableViewCell: UITableViewCell {
     public func configureCell(result: Result){
         titleLabel.text = result.title
 //        popularityLabel.text = "Popularity: \(result.popularity)"
-        //popularity in percents:
+        // ***** popularity in percents: *****
         popularityLabel.text = setPopularity(result: result)
         
-        posterImageView.loadImageUsingUrlString(urlString: "https://image.tmdb.org/t/p/w440_and_h660_face\(result.posterPath)") { (bool) in
+        posterImageView.loadImageUsingUrlString(urlString: "https://image.tmdb.org/t/p/w440_and_h660_face\(result.posterPath ?? "")") { (bool) in
             if !(bool) { print (bool) }
         }
     }
